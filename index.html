@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Triangle</title>
+    <meta name="description" content="Kvalitní doučování v Havlíčkově Brodě a Jihlavě. Matematika, čeština, angličtina. Online i osobně. Od 200 Kč/hodina. Příprava na přijímačky.">
+    <link rel="icon" href="logo-triangle.png">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <nav class="pc-nav">
+        <img src="logo.webp" alt="Learning Triangle - kvalitní doučování" class="logo">
+        <ul>
+            <li class="active"><a href="index.html">ÚVOD</a></li>
+            <li><a href="aboutproject.html">O PROJEKTU</a></li>
+            <li><a href="pricing.html">CENÍK</a></li>
+            <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+            <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+            <li><a href="kontact.html">KONTAKT</a></li>
+            <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+        </ul>
+    </nav>
+    <nav class="mobile-nav">
+        <div class="nav-header">
+            <img src="logo.webp" alt="Learning Triangle - doučování" class="logo-mobile">
+            <div class="menu-container-wrapper">
+                <span class="menu-trigger">
+                    <i class="menu-trigger-bar top"></i>
+                    <i class="menu-trigger-bar middle"></i>
+                    <i class="menu-trigger-bar bottom"></i>
+                </span>
+                <span class="close-trigger">
+                    <i class="close-trigger-bar left"></i>
+                    <i class="close-trigger-bar right"></i>
+                </span>
+                <div class="inner-container">
+                    <i class="menu-bg top"></i>
+                    <i class="menu-bg middle"></i>
+                    <i class="menu-bg bottom"></i>
+                    <div class="menu-container">
+                    <ul class="menu">
+                        <li><a href="index.html">ÚVOD</a></li>
+                        <li><a href="aboutproject.html">O PROJEKTU</a></li>
+                        <li><a href="pricing.html">CENÍK</a></li>
+                        <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+                        <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+                        <li><a href="kontact.html">KONTAKT</a></li>
+                        <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section1">
+        <div class="title">
+            <h1><span class="learning">LEARNING</span></h1>
+            <h1><span class="triangle">TRIANGLE</span></h1>
+        </div>
+        <p class="description">doučovaní pro studenty základních a středních škol</p>
+
+        <div class="carousel_subjects">
+            <div class="container_subjects">
+                <div class="subject"><span class="short">M</span><span class="full">Matematika</span></div>
+                <div class="subject"><span class="short">ČJ</span><span class="full">Český jazyk</span></div>
+                <div class="subject"><span class="short">AJ</span><span class="full">Anglický jazyk</span></div>
+                <div class="subject"><span class="short">CH</span><span class="full">Chemie</span></div>
+                <div class="subject"><span class="short">F</span><span class="full">Fyzika</span></div>
+                <div class="subject"><span class="short">NJ</span><span class="full">Německý jazyk</span></div>
+                <div class="subject"><span class="short">FJ</span><span class="full">Francouzský jazyk</span></div>
+                <div class="subject"><span class="short">IT</span><span class="full">Programování</span></div>
+                <div class="subject"><span class="short">IRL</span><span class="full">IRL v knihovně</span></div>
+                <div class="subject"><span class="short">ONLINE</span><span class="full">Online forma</span></div>
+                <div class="subject"><span class="short">CERMAT</span><span class="full">Cermat testy</span></div>
+                <div class="subject"><span class="short">SOS</span><span class="full">Záchrana před písemkou</span></div>
+                <!-- dupe -->
+                <div class="subject"><span class="short">M</span><span class="full">Matematika</span></div>
+                <div class="subject"><span class="short">ČJ</span><span class="full">Český jazyk</span></div>
+                <div class="subject"><span class="short">AJ</span><span class="full">Anglický jazyk</span></div>
+                <div class="subject"><span class="short">CH</span><span class="full">Chemie</span></div>
+                <div class="subject"><span class="short">F</span><span class="full">Fyzika</span></div>
+                <div class="subject"><span class="short">NJ</span><span class="full">Německý jazyk</span></div>
+                <div class="subject"><span class="short">FJ</span><span class="full">Francouzský jazyk</span></div>
+                <div class="subject"><span class="short">IT</span><span class="full">Programování</span></div>
+                <div class="subject"><span class="short">IRL</span><span class="full">IRL v knihovně</span></div>
+                <div class="subject"><span class="short">ONLINE</span><span class="full">Online forma</span></div>
+                <div class="subject"><span class="short">CERMAT</span><span class="full">Cermat testy</span></div>
+                <div class="subject"><span class="short">SOS</span><span class="full">Záchrana před písemkou</span></div>
+            </div>
+        </div>
+
+        <p class="statistic-mobile"><span class="quantity-mobile">1000+</span> odučených hodin</p>
+        <p class="statistic-mobile"><span class="quantity-mobile">200+</span> úspěšných řešitelů příjímaček</p>
+
+        <div class="cta">
+            <div class="statistic">
+                <h2 class="quantity">1000+</h2>
+                <p>odučených hodin</p>
+            </div>
+
+            <button class="cta_hero" onclick="window.location.href='hledamdoucovani.html'">MÁM ZÁJEM!</button>
+
+            <div class="statistic">
+                <h2 class="quantity">200+</h2>
+                <p>úspěšných řešitelů přijímaček</p>
+            </div>
+        </div>
+
+        <section class="reviews">
+            <div id="loadingMessage" class="loading">Načítání recenzí...</div>
+            <div id="noReviewsMessage" class="no-reviews" style="display: none;">
+                Zatím nejsou k dispozici žádné recenze.
+            </div>
+            
+            <div id="carouselSection" style="display: none;">
+                <div class="carousel-container">
+                    <h2>Recenze zákazníků</h2>
+                    <div class="carousel-wrapper" id="carouselWrapper"></div>
+                    <button onclick="window.location.href='writereview.html'" class="writereview">Napsat recenzi</button>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="section2">
+        <h2>NABÍDKA</h2>
+        <div class="offer">
+            <div class="offer-wrapper">
+                <div class="offercard">
+                    <img class="photo" src="foto1.png" alt="Příprava na přijímačky CERMAT - efektivní doučování">
+                    <h3 class="offer-card-text">PŘÍPRAVA NA PŘÍJÍMAČKY CERMAT</h3>
+                    <div class="card-overlay" id="overlay1">
+                        <button class="close-overlay" onclick="closeOverlay('overlay1')">×</button>
+                        <ul>
+                            <li class="cardtext-nodec">Připravíme vaše dítě na přijímací zkoušky CERMAT bez stresu a s jasným plánem!</li>
+                            <li class="cardtext-nodec">Zaměřujeme se na pochopení látky, strategii testu i jistotu při samotné zkoušce.</li>
+                            <li class="cardtext-nodec">Co příprava zahrnuje:</li>
+                            <li class="cardtext">Individuální analýzu slabých míst a chyb</li>
+                            <li class="cardtext">Systematické doučení a cílené procvičování</li>
+                            <li class="cardtext">Nácvik strategie práce s časem a úlohami</li>
+                            <li class="cardtext">Drill CERMAT testů z minulých let</li>
+                            <li class="cardtext">Průběžnou zpětnou vazbu rodičům.</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="more" onclick="openOverlay('overlay1')">Více</button>
+            </div>
+            
+            <div class="offer-wrapper">
+                <div class="offercard_middle">
+                    <img class="photo" src="foto2.png" alt="Dlouhodobé doučování matematiky, češtiny a angličtiny">
+                    <h3 class="offer-card-text">DLOUHODOBÉ PRŮBĚŽNÉ DOUČOVÁNÍ</h3>
+                    <div class="card-overlay" id="overlay2">
+                        <button class="close-overlay" onclick="closeOverlay('overlay2')">×</button>
+                        <ul>
+                            <li class="cardtext-nodec">Pravidelná podpora dítěte během školního roku. Pomáháme nejen dohnat látku, ale hlavně jí skutečně porozumět.</li>
+                            <li class="cardtext-nodec">Ideální pro žáky ZŠ i SŠ, kteří:</li>
+                            <li class="cardtext">Se ve škole ztrácí nebo nestíhají tempo</li>
+                            <li class="cardtext">Chtějí zlepšit známky a sebevědomí</li>
+                            <li class="cardtext">Potřebují systematický řád a vysvětlení "jinak"</li>
+                            <li class="cardtext-nodec">Součástí doučování je:</li>
+                            <li class="cardtext">Srozumitelné dovysvětlení probírané látky</li>
+                            <li class="cardtext">Procvičování a upevnění učiva</li>
+                            <li class="cardtext">Příprava na písemky a testy</li>
+                            <li class="cardtext">Pomoc s domácími úkoly</li>
+                            <li class="cardtext">Rozvoj myšlení a samostatnosti</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="more2" onclick="openOverlay('overlay2')">Více</button>
+            </div>
+            
+            <div class="offer-wrapper">
+                <div class="offercard">
+                    <img class="photo" src="foto3.png" alt="Výuka anglického, německého a francouzského jazyka">
+                    <h3 class="offer-card-text">VÝUKA JAZYKŮ</h3>
+                    <div class="card-overlay" id="overlay3">
+                        <button class="close-overlay" onclick="closeOverlay('overlay3')">×</button>
+                        <ul>
+                            <li class="cardtext-nodec">Učíme jazyky tak, aby se děti nebály mluvit.</li>
+                            <li class="cardtext-nodec">Důraz klademe na porozumění, komunikaci a praktické použití jazyka.</li>
+                            <li class="cardtext-nodec">Jak výuka probíhá:</li>
+                            <li class="cardtext">Přirozená konverzace přizpůsobená úrovni dítěte</li>
+                            <li class="cardtext">Vysvětlení gramatiky na konkrétních příkladech</li>
+                            <li class="cardtext">Procvičování formou dialogu, her a úloh</li>
+                            <li class="cardtext">Příprava na testy, písemky i ústní zkoušení</li>
+                            <li class="cardtext">Rozšíření slovní zásoby i u nadaných dětí</li>
+                            <li class="cardtext-nodec">Vhodné pro:</li>
+                            <li class="cardtext">Děti, které se bojí mluvit</li>
+                            <li class="cardtext">žáky, kterým jazyk "nesedl" ve škole</li>
+                            <li class="cardtext">studenty, kteří chtějí být napřed</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="more" onclick="openOverlay('overlay3')">Více</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section3">
+        <img src="adamferencz.jpg" class="image-owner" alt="Ing. Adam Ferencz - zakladatel Learning Triangle, zkušený učitel">
+        <div class="text">
+            <h1>Ing. ADAM FERENCZ</h1>
+            <p>zakladatel projektu, učitel</p>
+            <ul>
+                <li>Tímto projektem bych chtěl pomoct dětem na základních školách a zároveň motivovat a rozvinout šikovné mladé studenty středních škol.</li>
+                <li>V mém systému doučování lektory připravím na to, jak správně doučovat, připravovat se na lekci a jak pracovat s dítětem.</li>
+                <li>Pomocí zpětné vazby pak vše doladíme, aby všichni byli spokojení. Mám tolik pedagogických metod a přístupů, které chci předávat dál, a díky tomuto projektu budu moct.</li>
+            </ul>
+            <div class="cta-section3">
+                <button class="cta-section-sign-up cta-section-sign-up-pc" onclick="openOverlay('overlay2')">Přihlásit se!</button>
+                <button class="cta-section-more cta-section-more-pc" onclick="openOverlay('overlay2')">Více</button>
+            </div>
+        </div>
+        <div class="socials">
+            <a href="https://instagram.com/tvuj_instagram" target="_blank">
+                <div class="ig"></div>
+            </a>
+            <a href="https://facebook.com/tvuj_facebook" target="_blank">
+                <div class="fb"></div>
+            </a>
+            <a href="https://youtube.com/@tvuj_kanal" target="_blank">
+                <div class="yt"></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section3-mobile">
+        <h1>Ing. ADAM FERENCZ</h1>
+        <p>zakladatel projektu, učitel</p>
+        <li>Tímto projektem bych chtěl pomoct dětem na základních školách a zároveň motivovat a rozvinout šikovné mladé studenty středních škol.</li>
+        <div class="section3-mobile-div">
+            <img src="adamferencz.jpg" class="image-owner-mobile" alt="Ing. Adam Ferencz - zakladatel a učitel Learning Triangle">
+            <div class="text-mobile">
+                <ul>
+                    <li class="flex-text">"V mém systému doučování lektory připravím na to, jak správně doučovat, připravovat se na lekci a jak pracovat s dítětem."</li>
+                </ul>
+            </div>
+        </div>
+       <li>Pomocí zpětné vazby pak vše doladíme, aby všichni byli spokojení. Mám tolik pedagogických metod a přístupů, které chci předávat dál, a díky tomuto projektu budu moct.</li>
+
+       <div class="cta-section3">
+            <button class="cta-section-sign-up" onclick="openOverlay('overlay2')">Přihlásit se!</button>
+            <button class="cta-section-more" onclick="openOverlay('overlay2')">Více</button>
+       </div>
+
+       <!--<div class="socials">
+            <a href="https://instagram.com/tvuj_instagram" target="_blank">
+                <div class="ig"></div>
+            </a>
+            <a href="https://facebook.com/tvuj_facebook" target="_blank">
+                <div class="fb"></div>
+            </a>
+            <a href="https://youtube.com/@tvuj_kanal" target="_blank">
+                <div class="yt"></div>
+            </a>
+        </div>-->
+    </section>
+
+    <section class="section4">
+        <h1>VÍCE O NÁS</h1>
+        <div class="video">
+            <iframe class="video" src="https://www.youtube.com/embed/?v=u_DRgm9yr6I" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <!-- AI CHATBOT WIDGET -->
+    <div id="chatWidget">
+        <button id="chatBtn">💬</button>
+        
+        <div id="chatBox">
+            <div class="chat-header">
+                <div class="chat-header-avatar">🎓</div>
+                <div class="chat-header-info">
+                    <h3>Learning Triangle AI</h3>
+                    <p>Jsem tu, abych ti pomohl!</p>
+                </div>
+            </div>
+            
+            <div id="chatMessages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Ahoj! 👋 Jsem AI asistent Learning Triangle. Jak ti můžu pomoci?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jaké předměty doučujete?')">📚 Předměty</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Kolik to stojí?')">💰 Cena</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jak to funguje?')">❓ Info</button>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="chat-input-container">
+                <input id="chatInput" type="text" placeholder="Napiš zprávu..." autocomplete="off">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== REVIEWS ==========
+        let reviewsData = [];
+        let currentIndex = 0;
+        let autoScrollInterval;
+
+        async function loadReviews() {
+            try {
+                const response = await fetch('/api/firebase?action=get-reviews');
+                const data = await response.json();
+                document.getElementById('loadingMessage').style.display = 'none';
+
+                if (data.reviews && data.reviews.length > 0) {
+                    reviewsData = data.reviews;
+                    document.getElementById('carouselSection').style.display = 'block';
+                    document.getElementById('noReviewsMessage').style.display = 'none';
+                    renderReviews();
+                    startAutoScroll();
+                } else {
+                    showNoReviews();
+                }
+            } catch (error) {
+                showNoReviews();
+            }
+        }
+
+        function showNoReviews() {
+            document.getElementById('carouselSection').style.display = 'none';
+            document.getElementById('noReviewsMessage').style.display = 'block';
+        }
+
+        function renderReviews() {
+            const wrapper = document.getElementById('carouselWrapper');
+            const duplicatedReviews = [];
+            for (let i = 0; i < 5; i++) {
+                duplicatedReviews.push(...reviewsData);
+            }
+            wrapper.innerHTML = duplicatedReviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar"></div>
+                        <div class="review-info">
+                            <div class="review-name">${escapeHtml(review.name)}</div>
+                            <div class="review-stars">${'★'.repeat(review.rating)}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">${escapeHtml(review.text)}</div>
+                </div>
+            `).join('');
+            currentIndex = reviewsData.length * 2;
+            updateCarousel(false);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateCarousel(animated = true) {
+            const wrapper = document.getElementById('carouselWrapper');
+            const cardWidth = 300;
+            const offset = -(currentIndex * cardWidth);
+            wrapper.style.transition = animated ? 'transform 0.8s ease-in-out' : 'none';
+            wrapper.style.transform = `translateX(${offset}px)`;
+        }
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                currentIndex++;
+                updateCarousel(true);
+                setTimeout(() => {
+                    if (currentIndex >= reviewsData.length * 4) {
+                        currentIndex = reviewsData.length * 2;
+                        updateCarousel(false);
+                    }
+                }, 800);
+            }, 4000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselSection = document.getElementById('carouselSection');
+            if (carouselSection) {
+                carouselSection.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+                carouselSection.addEventListener('mouseleave', () => startAutoScroll());
+            }
+        });
+
+        loadReviews();
+
+        // ========== NAVBAR SCROLL ==========
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ========== OFFER OVERLAYS ==========
+        window.openOverlay = function(id) {
+            const overlay = document.getElementById(id);
+            overlay.classList.toggle('active');
+        }
+
+        window.closeOverlay = function(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // ========== AI CHATBOT ==========
+        const chatBtn = document.getElementById('chatBtn');
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatBtn.onclick = () => {
+            const isVisible = chatBox.style.display === 'block';
+            chatBox.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) chatInput.focus();
+        };
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim()) {
+                sendMessage();
+            }
+        });
+
+        sendBtn.onclick = sendMessage;
+
+        window.sendQuickReply = function(message) {
+            chatInput.value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+            addMessage(userMsg, 'user');
+            chatInput.value = '';
+            typingIndicator.classList.add('active');
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                const data = await response.json();
+                typingIndicator.classList.remove('active');
+                if (data.error) {
+                    addMessage('Omlouvám se, něco se pokazilo. Zkus to prosím znovu.', 'bot');
+                    console.error('API Error:', data.error);
+                } else {
+                    addMessage(data.reply, 'bot');
+                }
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                addMessage('Chyba připojení k serveru. Zkontroluj internet.', 'bot');
+                console.error('Fetch Error:', error);
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+
+    <footer>
+    <div class="footer-container">
+        <!-- SLOUPEC 1 - NAVIGACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="aboutproject.html">O projektu</a></li>
+                <li><a href="pricing.html">Ceník</a></li>
+                <li><a href="hledamdoucovani.html">Hledám doučování</a></li>
+                <li><a href="chcidoucovat.html">Chci doučovat</a></li>
+                <li><a href="kontact.html">Kontakt</a></li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 2 - KONTAKT & SOCIÁLNÍ SÍTĚ -->
+        <div class="footer-column">
+            <div class="social-links">
+                <a href="https://www.facebook.com/learningtriangle.cz/?locale=cs_CZ" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669c1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://instagram.com/learningtriangle.cz" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919c.058 1.265.069 1.645.069 4.849c0 3.205-.012 3.584-.069 4.849c-.149 3.225-1.664 4.771-4.919 4.919c-1.266.058-1.644.07-4.85.07c-3.204 0-3.584-.012-4.849-.07c-3.26-.149-4.771-1.699-4.919-4.92c-.058-1.265-.07-1.644-.07-4.849c0-3.204.013-3.583.07-4.849c.149-3.227 1.664-4.771 4.919-4.919c1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072C2.695.272.273 2.69.073 7.052C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98c.059-1.28.073-1.689.073-4.948c0-3.259-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324a6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8a4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881a1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                    Instagram
+                </a>
+            </div>
+            
+            <ul class="contact-list">
+                <li><a href="mailto:info@learningtriangle.cz">info@learningtriangle.cz</a></li>
+                <li><a href="tel:+420722207321">+420 722 207 321</a></li>
+                <li>Havlíčkův Brod, Česká republika</li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 3 - PRÁVNÍ INFORMACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="obchodni-podminky.html">Obchodní podmínky</a></li>
+                <li><a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a></li>
+                <li><a href="gdpr.html">GDPR</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-copyright">
+        <p>&copy; 2025 Learning Triangle. Všechna práva vyhrazena.</p>
+    </div>
+</footer>
+</html>

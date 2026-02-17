@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Recenze</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Admin Panel */
+        .admin-container {
+            display: none;
+            padding: 20px;
+        }
+
+        .admin-header {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background: #d32f2f;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-section h2 {
+            color: #4FC3F7;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #4FC3F7;
+            border-bottom-color: #4FC3F7;
+        }
+
+        .tab .badge {
+            background: #f44336;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 5px;
+        }
+
+        .reviews-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .review-item.pending {
+            border-color: #FFC107;
+            background: #fffbf0;
+        }
+
+        .review-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .review-item-rating {
+            color: #FFC107;
+            font-size: 1.2rem;
+        }
+
+        .review-item-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .review-item-meta {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .review-item-email {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .status-badge.pending {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-badge.approved {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-approve {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #45a049;
+        }
+
+        .btn-reject {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #F57C00;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card.warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card.success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .tab.active {
+                border-left-color: #4FC3F7;
+                border-bottom-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-box">
+            <h1>🔐 Admin Přihlášení</h1>
+            <div id="loginError" class="error-message"></div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Heslo</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">Přihlásit se</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminContainer" class="admin-container">
+        <div class="admin-header">
+            <h1>🛠️ Admin Panel</h1>
+            <div class="user-info">
+                <span id="userEmail"></span>
+                <button class="logout-btn" onclick="logout()">Odhlásit se</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="message" class="message"></div>
+
+            <!-- Statistiky -->
+            <div class="admin-section">
+                <h2>📊 Statistiky</h2>
+                <div class="stats">
+                    <div class="stat-card warning">
+                        <div class="stat-number" id="pendingCount">0</div>
+                        <div class="stat-label">Čeká na schválení</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number" id="approvedCount">0</div>
+                        <div class="stat-label">Schválené recenze</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">Celkem recenzí</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="avgRating">0.0</div>
+                        <div class="stat-label">Průměrné hodnocení</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seznam recenzí -->
+            <div class="admin-section">
+                <h2>📝 Správa recenzí</h2>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('pending')" id="tabPending">
+                        Čeká na schválení <span class="badge" id="badgePending">0</span>
+                    </button>
+                    <button class="tab" onclick="switchTab('approved')" id="tabApproved">
+                        Schválené
+                    </button>
+                    <button class="tab" onclick="switchTab('all')" id="tabAll">
+                        Všechny
+                    </button>
+                </div>
+
+                <div id="loadingReviews" class="loading">Načítání recenzí...</div>
+                <div id="reviewsList" class="reviews-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getDatabase, ref, update, remove, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyCudxqV25JHt9JQ2Nwvd1-5MX3czzxpZeE",
+        authDomain: "learning-triangle.firebaseapp.com",
+        databaseURL: "https://learning-triangle-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "learning-triangle",
+        storageBucket: "learning-triangle.firebasestorage.app",
+        messagingSenderId: "225296768834",
+        appId: "1:225296768834:web:472e2a25f24afc644ff2db",
+        measurementId: "G-MLDZ5TLJ87"
+        };
+
+
+        // Inicializace Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const reviewsRef = ref(database, 'reviews');
+
+        let allReviews = [];
+        let currentTab = 'pending';
+
+        // Kontrola přihlášení
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                document.getElementById('userEmail').textContent = user.email;
+                loadReviews();
+            } else {
+                document.getElementById('loginContainer').style.display = 'flex';
+                document.getElementById('adminContainer').style.display = 'none';
+            }
+        });
+
+        // Přihlášení
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorEl = document.getElementById('loginError');
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Přihlašuji...';
+            errorEl.style.display = 'none';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                console.error('Chyba při přihlášení:', error);
+                errorEl.textContent = 'Nesprávný email nebo heslo.';
+                errorEl.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Přihlásit se';
+            }
+        });
+
+        // Odhlášení
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error('Chyba při odhlášení:', error);
+            }
+        }
+
+        // Zobrazení zprávy
+        function showMessage(text, type = 'success') {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+
+        // Načtení recenzí
+        function loadReviews() {
+            onValue(reviewsRef, (snapshot) => {
+                const data = snapshot.val();
+                document.getElementById('loadingReviews').style.display = 'none';
+                
+                if (data) {
+                    allReviews = Object.entries(data)
+                        .map(([id, review]) => ({ id, ...review }))
+                        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+                    updateStats();
+                    displayReviews();
+                } else {
+                    allReviews = [];
+                    updateStats();
+                    document.getElementById('reviewsList').innerHTML = 
+                        '<div class="empty-state">Zatím nejsou žádné recenze.</div>';
+                }
+            });
+        }
+
+        // Aktualizace statistik
+        function updateStats() {
+            const pending = allReviews.filter(r => r.pending === true);
+            const approved = allReviews.filter(r => r.approved === true);
+            const total = allReviews.length;
+            const avgRating = total > 0 
+                ? (allReviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1)
+                : '0.0';
+
+            document.getElementById('pendingCount').textContent = pending.length;
+            document.getElementById('approvedCount').textContent = approved.length;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('badgePending').textContent = pending.length;
+        }
+
+        // Přepnutí tabů
+        window.switchTab = function(tab) {
+            currentTab = tab;
+            
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+            
+            displayReviews();
+        }
+
+        // Zobrazení recenzí podle aktivního tabu
+        function displayReviews() {
+            let reviewsToShow = allReviews;
+
+            if (currentTab === 'pending') {
+                reviewsToShow = allReviews.filter(r => r.pending === true);
+            } else if (currentTab === 'approved') {
+                reviewsToShow = allReviews.filter(r => r.approved === true);
+            }
+
+            const listEl = document.getElementById('reviewsList');
+
+            if (reviewsToShow.length === 0) {
+                listEl.innerHTML = '<div class="empty-state">Žádné recenze k zobrazení.</div>';
+                return;
+            }
+
+            listEl.innerHTML = reviewsToShow.map(review => `
+                <div class="review-item ${review.pending ? 'pending' : ''}">
+                    <span class="status-badge ${review.pending ? 'pending' : 'approved'}">
+                        ${review.pending ? '⏳ Čeká na schválení' : '✅ Schváleno'}
+                    </span>
+                    <div class="review-item-header">
+                        <div class="review-item-name">${escapeHtml(review.name)}</div>
+                        <div class="review-item-rating">${'★'.repeat(review.rating)}</div>
+                    </div>
+                    ${review.email ? `<div class="review-item-email">📧 ${escapeHtml(review.email)}</div>` : ''}
+                    <div class="review-item-text">${escapeHtml(review.text)}</div>
+                    <div class="review-item-meta">
+                        📅 ${review.timestamp ? new Date(review.timestamp).toLocaleString('cs-CZ') : 'Neznámé datum'}
+                    </div>
+                    <div class="review-actions">
+                        ${review.pending ? `
+                            <button class="btn btn-approve" onclick="approveReview('${review.id}')">
+                                ✓ Schválit
+                            </button>
+                            <button class="btn btn-reject" onclick="rejectReview('${review.id}')">
+                                ✗ Zamítnout
+                            </button>
+                        ` : ''}
+                        <button class="btn btn-delete" onclick="deleteReview('${review.id}', '${escapeHtml(review.name)}')">
+                            🗑️ Smazat
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Schválení recenze
+        window.approveReview = async function(reviewId) {
+            try {
+                await update(ref(database, `reviews/${reviewId}`), {
+                    approved: true,
+                    pending: false
+                });
+                showMessage('Recenze byla schválena a zveřejněna!', 'success');
+            } catch (error) {
+                console.error('Chyba při schvalování:', error);
+                showMessage('Chyba při schvalování recenze.', 'error');
+            }
+        }
+
+        // Zamítnutí recenze (smazání)
+        window.rejectReview = async function(reviewId) {
+            if (confirm('Opravdu chcete zamítnout tuto recenzi? Bude trvale smazána.')) {
+                try {
+                    await remove(ref(database, `reviews/${reviewId}`));
+                    showMessage('Recenze byla zamítnuta a smazána.', 'success');
+                } catch (error) {
+                    console.error('Chyba při zamítání:', error);
+                    showMessage('Chyba při zamítání recenze.', 'error');
+                }
+            }
+        }
+
+        // Smazání recenze
+        window.deleteReview = async function(reviewId, reviewName) {
+            if (confirm(`Opravdu chcete smazat recenzi od ${reviewName}?`)) {
+                try {
+                    await remove(ref(database, `reviews/${reviewId}`));
+                    showMessage('Recenze byla úspěšně smazána!', 'success');
+                } catch (error) {
+                    console.error('Chyba při mazání:', error);
+                    showMessage('Chyba při mazání recenze.', 'error');
+                }
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

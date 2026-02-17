@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chci Doučovat</title>
+    <meta name="description" content="Doučuj s Learning Triangle! Hledáme talentované studenty gymnázií a vysokoškoláky. Flexibilní výdělek, osobní rozvoj.">
+    <link rel="icon" href="logo-triangle.png">
+    <link rel="stylesheet" href="chcidoucovat.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <nav class="pc-nav">
+        <img src="logo.webp" alt="Learning Triangle - doučování" class="logo">
+        <ul>
+            <li><a href="index.html">ÚVOD</a></li>
+            <li><a href="aboutproject.html">O PROJEKTU</a></li>
+            <li><a href="pricing.html">CENÍK</a></li>
+            <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+            <li class="active"><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+            <li><a href="kontact.html">KONTAKT</a></li>
+            <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+        </ul>
+    </nav>
+    <nav class="mobile-nav">
+        <div class="nav-header">
+            <img src="logo.webp" alt="Learning Triangle" class="logo-mobile">
+            <div class="menu-container-wrapper">
+                <span class="menu-trigger">
+                    <i class="menu-trigger-bar top"></i>
+                    <i class="menu-trigger-bar middle"></i>
+                    <i class="menu-trigger-bar bottom"></i>
+                </span>
+                <span class="close-trigger">
+                    <i class="close-trigger-bar left"></i>
+                    <i class="close-trigger-bar right"></i>
+                </span>
+                <div class="inner-container">
+                    <i class="menu-bg top"></i>
+                    <i class="menu-bg middle"></i>
+                    <i class="menu-bg bottom"></i>
+                    <div class="menu-container">
+                    <ul class="menu">
+                        <li><a href="index.html">ÚVOD</a></li>
+                        <li><a href="aboutproject.html">O PROJEKTU</a></li>
+                        <li><a href="pricing.html">CENÍK</a></li>
+                        <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+                        <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+                        <li><a href="kontact.html">KONTAKT</a></li>
+                        <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section1">
+        <p>Jsem student,</p>
+        <div class="title">
+            <h2><span class="heading">CHCI DOUČOVAT</span></h2>
+        </div>
+    </section>
+
+    <!-- KONTAKTNÍ SEKCE PRO LEKTORY -->
+    <section class="contact-section">    
+        <div class="contact-wrapper">
+            <!-- LEVÁ STRANA - Kontaktní karta -->
+            <div class="contact-card">
+                <div>
+                    <div class="contact-card-image">
+                        <img src="adamferencz.jpg" alt="Ing. Adam Ferencz - zakladatel Learning Triangle">
+                        <div class="contact-card-name">Ing. Adam Ferencz</div>
+                    </div>
+                    
+                    <h2 class="contact-card-title">Zavolejte nám</h2>
+                    
+                    <div class="contact-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Jsme právě u telefonu!</span>
+                    </div>
+                </div>
+                
+                <div class="contact-buttons-left">
+                    <a href="tel:+420722207321" class="contact-phone-btn">
+                        <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        +420 722 207 321
+                    </a>
+                    
+                    <a href="https://wa.me/420722207321" target="_blank" class="contact-whatsapp-btn">
+                        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Napsat na WhatsApp
+                    </a>
+                </div>
+            </div>
+            
+            <!-- PRAVÁ STRANA - Formulář pro lektory -->
+            <div class="contact-form-card">
+                <h2 class="form-title">Staň se lektorem</h2>
+                <p class="form-subtitle">Vyplň přihlášku a připoj se k nám</p>
+                
+                <form class="contact-form" id="tutorForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">👤 Jméno a příjmení <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required placeholder="Jan Novák">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">📧 Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="jan.novak@email.cz">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">📱 Telefonní číslo <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+420 123 456 789">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="birthdate">🎂 Datum narození <span class="required">*</span></label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group-full">
+                        <label for="message">📘 Jaké předměty bys chtěl(a) doučovat? Napiš o sobě něco 🙂 <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Např. Rád(a) bych doučoval(a) matematiku a fyziku. Studuji na gymnáziu 3. ročník, maturuji příští rok. Baví mě práce s dětmi a mám trpělivost. Můžu doučovat v úterý a čtvrtek odpoledne..."></textarea>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="gdpr" name="gdpr" required>
+                        <label for="gdpr">
+                            Odesláním formuláře souhlasím se zpracováním <a href="#" class="form-link">osobních údajů</a> 
+                            a <a href="#" class="form-link">obchodními podmínkami</a> <span class="required">*</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="form-submit-btn">Odeslat přihlášku</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- AI CHATBOT WIDGET -->
+    <div id="chatWidget">
+        <button id="chatBtn">💬</button>
+        
+        <div id="chatBox">
+            <div class="chat-header">
+                <div class="chat-header-avatar">🎓</div>
+                <div class="chat-header-info">
+                    <h3>Learning Triangle AI</h3>
+                    <p>Jsem tu, abych ti pomohl!</p>
+                </div>
+            </div>
+            
+            <div id="chatMessages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Ahoj! 👋 Jsem AI asistent Learning Triangle. Jak ti můžu pomoci?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jaké předměty doučujete?')">📚 Předměty</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Kolik to stojí?')">💰 Cena</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jak to funguje?')">❓ Info</button>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="chat-input-container">
+                <input id="chatInput" type="text" placeholder="Napiš zprávu..." autocomplete="off">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONSOLIDATED SCRIPT -->
+    <script type="module">
+        // ========== FIREBASE INIT ==========
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, push, set } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCudxqV25JHt9JQ2Nwvd1-5MX3czzxpZeE",
+            authDomain: "learning-triangle.firebaseapp.com",
+            databaseURL: "https://learning-triangle-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "learning-triangle",
+            storageBucket: "learning-triangle.firebasestorage.app",
+            messagingSenderId: "225296768834",
+            appId: "1:225296768834:web:472e2a25f24afc644ff2db",
+            measurementId: "G-MLDZ5TLJ87"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // ========== TUTOR FORM HANDLING ==========
+        const tutorForm = document.getElementById('tutorForm');
+
+        if (tutorForm) {
+            tutorForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = this.querySelector('.form-submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'Odesílám...';
+                submitBtn.disabled = true;
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    birthdate: document.getElementById('birthdate').value,
+                    message: document.getElementById('message').value,
+                    timestamp: Date.now(),
+                    date: new Date().toLocaleString('cs-CZ'),
+                    status: 'new'
+                };
+                
+                try {
+                    const tutorApplicationsRef = ref(database, 'chci-doucovat');
+                    const newApplicationRef = push(tutorApplicationsRef);
+                    
+                    await set(newApplicationRef, formData);
+                    
+                    submitBtn.textContent = '✓ Odesláno!';
+                    submitBtn.style.background = '#10b981';
+                    
+                    tutorForm.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = '';
+                    }, 3000);
+                    
+                } catch (error) {
+                    console.error('Chyba:', error);
+                    submitBtn.textContent = '✗ Chyba! Zkuste znovu';
+                    submitBtn.style.background = '#ef4444';
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = '';
+                    }, 3000);
+                }
+            });
+        }
+
+        // ========== NAVBAR SCROLL ==========
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ========== AI CHATBOT ==========
+        const chatBtn = document.getElementById('chatBtn');
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatBtn.onclick = () => {
+            const isVisible = chatBox.style.display === 'block';
+            chatBox.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) chatInput.focus();
+        };
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim()) {
+                sendMessage();
+            }
+        });
+
+        sendBtn.onclick = sendMessage;
+
+        window.sendQuickReply = function(message) {
+            chatInput.value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+
+            addMessage(userMsg, 'user');
+            chatInput.value = '';
+
+            typingIndicator.classList.add('active');
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                
+                const data = await response.json();
+                
+                typingIndicator.classList.remove('active');
+                
+                if (data.error) {
+                    addMessage('Omlouvám se, něco se pokazilo. Zkus to prosím znovu.', 'bot');
+                } else {
+                    addMessage(data.reply, 'bot');
+                }
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                addMessage('Chyba připojení k serveru.', 'bot');
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+<footer>
+    <div class="footer-container">
+        <!-- SLOUPEC 1 - NAVIGACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="aboutproject.html">O projektu</a></li>
+                <li><a href="pricing.html">Ceník</a></li>
+                <li><a href="hledamdoucovani.html">Hledám doučování</a></li>
+                <li><a href="chcidoucovat.html">Chci doučovat</a></li>
+                <li><a href="kontact.html">Kontakt</a></li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 2 - KONTAKT & SOCIÁLNÍ SÍTĚ -->
+        <div class="footer-column">
+            <div class="social-links">
+                <a href="https://www.facebook.com/learningtriangle.cz/?locale=cs_CZ" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669c1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://instagram.com/learningtriangle.cz" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919c.058 1.265.069 1.645.069 4.849c0 3.205-.012 3.584-.069 4.849c-.149 3.225-1.664 4.771-4.919 4.919c-1.266.058-1.644.07-4.85.07c-3.204 0-3.584-.012-4.849-.07c-3.26-.149-4.771-1.699-4.919-4.92c-.058-1.265-.07-1.644-.07-4.849c0-3.204.013-3.583.07-4.849c.149-3.227 1.664-4.771 4.919-4.919c1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072C2.695.272.273 2.69.073 7.052C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98c.059-1.28.073-1.689.073-4.948c0-3.259-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324a6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8a4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881a1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                    Instagram
+                </a>
+            </div>
+            
+            <ul class="contact-list">
+                <li><a href="mailto:info@learningtriangle.cz">info@learningtriangle.cz</a></li>
+                <li><a href="tel:+420722207321">+420 722 207 321</a></li>
+                <li>Havlíčkův Brod, Česká republika</li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 3 - PRÁVNÍ INFORMACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="obchodni-podminky.html">Obchodní podmínky</a></li>
+                <li><a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a></li>
+                <li><a href="gdpr.html">GDPR</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-copyright">
+        <p>&copy; 2025 Learning Triangle. Všechna práva vyhrazena.</p>
+    </div>
+</footer>
+</html>

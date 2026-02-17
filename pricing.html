@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceník</title>
+    <meta name="description" content="Transparentní ceník doučování. Balíčky 5, 10, 20 hodin. Online i osobně v Havlíčkově Brodě a Jihlavě. Bez skrytých poplatků.">
+    <link rel="icon" href="logo-triangle.png">
+    <link rel="stylesheet" href="pricing.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <nav class="pc-nav">
+        <img src="logo.webp" alt="Learning Triangle - doučování" class="logo">
+        <ul>
+            <li><a href="index.html">ÚVOD</a></li>
+            <li><a href="aboutproject.html">O PROJEKTU</a></li>
+            <li class="active"><a href="pricing.html">CENÍK</a></li>
+            <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+            <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+            <li><a href="kontact.html">KONTAKT</a></li>
+            <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+        </ul>
+    </nav>
+    <nav class="mobile-nav">
+        <div class="nav-header">
+            <img src="logo.webp" alt="Learning Triangle" class="logo-mobile">
+            <div class="menu-container-wrapper">
+                <span class="menu-trigger">
+                    <i class="menu-trigger-bar top"></i>
+                    <i class="menu-trigger-bar middle"></i>
+                    <i class="menu-trigger-bar bottom"></i>
+                </span>
+                <span class="close-trigger">
+                    <i class="close-trigger-bar left"></i>
+                    <i class="close-trigger-bar right"></i>
+                </span>
+                <div class="inner-container">
+                    <i class="menu-bg top"></i>
+                    <i class="menu-bg middle"></i>
+                    <i class="menu-bg bottom"></i>
+                    <div class="menu-container">
+                    <ul class="menu">
+                        <li><a href="index.html">ÚVOD</a></li>
+                        <li><a href="aboutproject.html">O PROJEKTU</a></li>
+                        <li><a href="pricing.html">CENÍK</a></li>
+                        <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+                        <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+                        <li><a href="kontact.html">KONTAKT</a></li>
+                        <li><a class="login" href="https://app.ltcko.cz/">PŘIHLÁSIT SE</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section1">
+        <div class="title">
+            <h2><span class="heading">CENÍK</span></h2>
+        </div>  
+        <div class="options">
+            <a href="#zs">základní škola</a>   
+            <a href="#ss">střední škola</a>  
+            <a href="#languages">jayzyky</a>
+            <a href="#vs">vysoká škola</a>  
+            <a href="#groups">doučování ve dvou</a>
+        </div>  
+    </section>
+
+    <section class="section2" id="zs">
+        <!-- ZÁKLADNÍ ŠKOLA -->
+        <div class="school-block">
+            <h3>ZÁKLADNÍ ŠKOLA</h3>
+            <p class="school-block-desc">Individuální příprava pro žáky ZŠ</p>
+            <div class="cards-grid">
+                <!-- Karta 1 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">DLOUHODOBÉ</div>
+                        <div class="card-title-sub">(bez přijímaček)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Individuálně 1-na-1</li>
+                        <li>Zvládnutí látky</li>
+                        <li>Zlepšení známky</li>
+                        <li>Příprava na písemky</li>
+                    </ul>
+                    <span class="card-price">350 Kč/h</span>
+                </div>
+
+                <!-- Karta 2 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">PŘÍPRAVA NA PŘIJÍMAČKY</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Cílená postupná příprava na CERMAT testy</li>
+                        <li>Procvičování a strategie</li>
+                        <li>Jistota u zkoušky</li>
+                    </ul>
+                    <span class="card-price">390 Kč/h</span>
+                </div>
+
+                <!-- Karta 3 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">JEDNORÁZOVÉ</div>
+                        <div class="card-title-sub">(expresní příprava)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Rychlá pomoc před písemkou</li>
+                        <li>Doučení tématu na test</li>
+                    </ul>
+                    <span class="card-price">450 Kč/h</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STŘEDNÍ ŠKOLA -->
+        <div class="school-block" id="ss">
+            <h3>STŘEDNÍ ŠKOLA</h3>
+            <p class="school-block-desc">Příprava na náročnější témata</p>
+            <div class="cards-grid">
+                <!-- Karta 1 -->
+                <div class="pricing-card ss-card">
+                    <div class="card-header">
+                        <div class="card-title-main">DLOUHODOBÉ</div>
+                        <div class="card-title-sub">(pravidelné)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Pravidelná podpora během roku</li>
+                        <li>Porozumění látce</li>
+                        <li>Lepší výsledky</li>
+                        <li>Příprava na písemky</li>
+                    </ul>
+                    <span class="card-price">360 Kč/h</span>
+                </div>
+
+                <!-- Karta 2 -->
+                <div class="pricing-card ss-card">
+                    <div class="card-header">
+                        <div class="card-title-main">PŘÍPRAVA NA MATURITU</div>
+                        <div class="card-title-sub">(včasná příprava)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Systematická příprava</li>
+                        <li>Opakování a procvičování</li>
+                        <li>Větší jistota u zkoušky</li>
+                    </ul>
+                    <span class="card-price">420 Kč/h</span>
+                </div>
+
+                <!-- Karta 3 -->
+                <div class="pricing-card ss-card">
+                    <div class="card-header">
+                        <div class="card-title-main">JEDNORÁZOVÉ</div>
+                        <div class="card-title-sub">(expresní příprava)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Intenzivní pomoc před zkouškou/projektem</li>
+                        <li>Rychlé a efektivní</li>
+                    </ul>
+                    <span class="card-price">450 Kč/h</span>
+                </div>
+            </div>
+        </div>
+
+            <!-- JAZYKY -->
+        <div class="school-block" id="languages">
+            <h3>JAZYKY</h3>
+            <p class="school-block-desc">Angličtina, francouzština, němčina (dle domluvy i další)</p>
+            <div class="cards-grid">
+                <!-- Karta 1 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">ZŠ JAZYKY</div>
+                        <div class="card-title-sub">*prvních 10 lekcí zvýhodněné <br> poté za 320Kč/h</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Rychlý rozjezd</li>
+                        <li>"Rozmluvení" dítěte</li>
+                        <li>Viditelné zlepšení</li>
+                        <li>Lepší známky</li>
+                    </ul>
+                    <span class="card-price">*299 Kč/h</span>
+                </div>
+
+                <!-- Karta 2 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">SŠ JAZYKY</div>
+                        <div class="card-title-sub">( příprava do školy, na maturitu)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Systematická příprava</li>
+                        <li>Zvednutí výkonu a pravidelná zpětná vazba</li>
+                        <li>Konverzace, gramatika a slovní zásoba</li>
+                    </ul>
+                    <span class="card-price">360 Kč/h</span>
+                </div>
+
+                <!-- Karta 3 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">PŘÍPRAVA NA CERTIFIKÁT</div>
+                        <div class="card-title-sub">(zkušený lektor s certifikátem)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Nastavení strategie</li>
+                        <li>Přesný plán a cílený trénink</li>
+                        <li>Speaking, reading i listening úlohy</li>
+                    </ul>
+                    <span class="card-price">450 Kč/h</span>
+                </div>
+            </div>
+        </div>
+
+              <!-- VYSOKÁ -->
+        <div class="school-block" id="vs">
+            <h3>VYSOKÁ ŠKOLA</h3>
+            <p class="school-block-desc">Pokročilá příprava na zkoušky a příjímačky</p>
+            <div class="cards-grid">
+                <!-- Karta 1 -->
+                <div class="pricing-card ss-card">
+                    <div class="card-header">
+                        <div class="card-title-main">Příjímačky na VŠ</div>
+                        <div class="card-title-sub">(cena při 5+ lekcích)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Pokročilá matematika/logika</li>
+                        <li>Drill na konkrétní testy</li>
+                        <li>Postupná příprava</li>
+                    </ul>
+                    <span class="card-price">420 Kč/h</span>
+                </div>
+
+                <!-- Karta 2 -->
+                <div class="pricing-card ss-card">
+                    <div class="card-header">
+                        <div class="card-title-main">SŠ JAZYKY</div>
+                        <div class="card-title-sub">( příprava do školy, na maturitu)</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Systematická příprava</li>
+                        <li>Zvednutí výkonu a pravidelná zpětná vazba</li>
+                        <li>Konverzace, gramatika a slovní zásoba</li>
+                    </ul>
+                    <span class="card-price">360 Kč/h</span>
+                </div>
+            </div>
+        </div>
+
+         <!-- SKUPINKYY -->
+        <div class="school-block" id="groups">
+            <h3>DOUČOVÁNÍ VE DVOU - UŠETŘETE SPOLEČNĚ</h3>
+            <p class="school-block-desc">Pokročilá příprava na zkoušky a příjímačky</p>
+            <div class="cards-grid">
+                <!-- Karta 1 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">ZŠ DLOUHODOBÉ</div>
+                        <div class="card-title-sub">*ušetříte 130 Kč/osoba</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Individuálně 1-na-1</li>
+                        <li>Zvládnutí látky</li>
+                        <li>Zlepšení známky</li>
+                        <li>Příprava na písemky</li>
+                    </ul>
+                    <span class="card-price">*190 Kč/h</span>
+                </div>
+                <!-- Karta 2 -->
+                <div class="pricing-card zs-card">
+                    <div class="card-header">
+                        <div class="card-title-main">ZŠ PŘÍJÍMAČKY</div>
+                        <div class="card-title-sub">*ušetříte 190 Kč/osoba</div>
+                    </div>
+                    <ul class="card-features">
+                        <li>Cílená postupná příprava na CERMAT testy</li>
+                        <li>Procvičování a strategie</li>
+                        <li>Jistota u zkoušky</li>
+                    </ul>
+                    <span class="card-price">*200 Kč/h</span>
+                </div>
+            </div>
+            <div class="card-title-sub">*Vhodné pro dvě děti na stejné úrovni (stejná látka). Cena je za 1 osobu.</div>
+        </div>
+    </section>
+
+    <!-- AI CHATBOT WIDGET -->
+    <div id="chatWidget">
+        <button id="chatBtn">💬</button>
+        
+        <div id="chatBox">
+            <div class="chat-header">
+                <div class="chat-header-avatar">🎓</div>
+                <div class="chat-header-info">
+                    <h3>Learning Triangle AI</h3>
+                    <p>Jsem tu, abych ti pomohl!</p>
+                </div>
+            </div>
+            
+            <div id="chatMessages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Ahoj! 👋 Jsem AI asistent Learning Triangle. Jak ti můžu pomoci?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jaké předměty doučujete?')">📚 Předměty</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Kolik to stojí?')">💰 Cena</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jak to funguje?')">❓ Info</button>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="chat-input-container">
+                <input id="chatInput" type="text" placeholder="Napiš zprávu..." autocomplete="off">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONSOLIDATED SCRIPT -->
+    <script type="module">
+        // ========== NAVBAR SCROLL ==========
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ========== AI CHATBOT (VOLÁ NODE.JS API) ==========
+        const chatBtn = document.getElementById('chatBtn');
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatBtn.onclick = () => {
+            const isVisible = chatBox.style.display === 'block';
+            chatBox.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) chatInput.focus();
+        };
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim()) {
+                sendMessage();
+            }
+        });
+
+        sendBtn.onclick = sendMessage;
+
+        window.sendQuickReply = function(message) {
+            chatInput.value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+
+            addMessage(userMsg, 'user');
+            chatInput.value = '';
+
+            typingIndicator.classList.add('active');
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                
+                const data = await response.json();
+                typingIndicator.classList.remove('active');
+                
+                if (data.error) {
+                    addMessage('Omlouvám se, něco se pokazilo. Zkus to prosím znovu.', 'bot');
+                } else {
+                    addMessage(data.reply, 'bot');
+                }
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                addMessage('Chyba připojení k serveru. Zkontroluj internet.', 'bot');
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+<footer>
+    <div class="footer-container">
+        <!-- SLOUPEC 1 - NAVIGACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="index.html">Úvod</a></li>
+                <li><a href="aboutproject.html">O projektu</a></li>
+                <li><a href="pricing.html">Ceník</a></li>
+                <li><a href="hledamdoucovani.html">Hledám doučování</a></li>
+                <li><a href="chcidoucovat.html">Chci doučovat</a></li>
+                <li><a href="kontact.html">Kontakt</a></li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 2 - KONTAKT & SOCIÁLNÍ SÍTĚ -->
+        <div class="footer-column">
+            <div class="social-links">
+                <a href="https://www.facebook.com/learningtriangle.cz/?locale=cs_CZ" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669c1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://instagram.com/learningtriangle.cz" target="_blank" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919c.058 1.265.069 1.645.069 4.849c0 3.205-.012 3.584-.069 4.849c-.149 3.225-1.664 4.771-4.919 4.919c-1.266.058-1.644.07-4.85.07c-3.204 0-3.584-.012-4.849-.07c-3.26-.149-4.771-1.699-4.919-4.92c-.058-1.265-.07-1.644-.07-4.849c0-3.204.013-3.583.07-4.849c.149-3.227 1.664-4.771 4.919-4.919c1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072C2.695.272.273 2.69.073 7.052C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98c.059-1.28.073-1.689.073-4.948c0-3.259-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324a6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8a4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881a1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                    Instagram
+                </a>
+            </div>
+            
+            <ul class="contact-list">
+                <li><a href="mailto:info@learningtriangle.cz">info@learningtriangle.cz</a></li>
+                <li><a href="tel:+420722207321">+420 722 207 321</a></li>
+                <li>Havlíčkův Brod, Česká republika</li>
+            </ul>
+        </div>
+
+        <!-- SLOUPEC 3 - PRÁVNÍ INFORMACE -->
+        <div class="footer-column">
+            <ul>
+                <li><a href="obchodni-podminky.html">Obchodní podmínky</a></li>
+                <li><a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a></li>
+                <li><a href="gdpr.html">GDPR</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-copyright">
+        <p>&copy; 2025 Learning Triangle. Všechna práva vyhrazena.</p>
+    </div>
+</footer>
+</html>
