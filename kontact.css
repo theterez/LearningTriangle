@@ -450,8 +450,8 @@ nav li:hover a {
 }
 
 .contact-image {
-    width:27%;
-    height: 500px;
+    width:20%;
+    height: 400px;
     background: #d0d0d0;
     border-radius: 20px;
     display: flex;
@@ -1439,4 +1439,5 @@ footer {
     .social-link {
         justify-content: flex-start;
     }
+
 }
