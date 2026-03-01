@@ -501,8 +501,7 @@ nav li:hover a {
     font-weight: bold;
     height: 5rem;
     margin-top: 10%;
-    display: flex;
-    justify-content: center;
+    width: 100%;
 }
 
 .learning {
@@ -510,6 +509,7 @@ nav li:hover a {
     display: block;
     position: absolute;
     top: -90px;
+    left: 17%;
 }
 
 .triangle {
@@ -517,6 +517,7 @@ nav li:hover a {
     display: block;
     position: absolute;
     top: -3.5rem;
+    right: 16.5%;
 }
 
 .description{
@@ -1938,4 +1939,5 @@ footer {
     .social-link {
         justify-content: flex-start;
     }
+
 }
