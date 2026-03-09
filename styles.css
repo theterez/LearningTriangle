@@ -791,11 +791,26 @@ nav li:hover a {
     overflow: visible;
 }
 
-.write-review {
-    text-align: center;
-    margin-top: 0;
-    padding: 40px 20px 60px;
-    background: #87CEEB;
+.writereview {
+    display: block;
+    margin: 20px auto;
+    padding: 14px 40px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(243, 175, 52, 0.4);
+}
+
+.writereview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(243, 175, 52, 0.6);
 }
 
 .write-review a {
@@ -1941,3 +1956,4 @@ footer {
     }
 
 }
+
