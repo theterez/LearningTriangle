@@ -1,7 +1,6 @@
 import admin from "firebase-admin";
-import fs from "fs";
-import path from "path";
 
+// Inicializace Firebase Admin
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
@@ -14,11 +13,6 @@ if (!admin.apps.length) {
 }
 
 const db = admin.firestore();
-
-const systemPrompt = fs.readFileSync(
-  path.join(process.cwd(), "prompt.md"),
-  "utf-8"
-);
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -34,9 +28,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Zpráva je prázdná" });
 
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey)
-    return res.status(500).json({ error: "Chyba konfigurace serveru - chybí API klíč" });
 
+  console.log("=== CHAT DEBUG ===");
+  console.log("Message received:", message);
+  console.log("Gemini API Key exists:", !!apiKey);
+  console.log("Gemini API Key length:", apiKey?.length);
+
+  if (!apiKey)
+    return res
+      .status(500)
+      .json({ error: "Chyba konfigurace serveru - chybí API klíč" });
+
+  // LOG user message
   try {
     await db.collection("chatLogs").add({
       sender: "user",
@@ -48,9 +51,16 @@ export default async function handler(req, res) {
     console.error("Failed to log user message:", logError.message);
   }
 
+  const systemPrompt = `Jsi přátelský AI asistent pro Learning Triangle.
+Nabízíme doučování: matematiku, češtinu, angličtinu a další předměty.
+Připravujeme na CERMAT. Kontakt: info@learningtriangle.cz.
+Odpovídej stručně (max 3 věty), česky a s emojis.`;
+
   try {
+    console.log("Calling Gemini API...");
+
     const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent"
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent",
       {
         method: "POST",
         headers: {
@@ -69,11 +79,13 @@ export default async function handler(req, res) {
           ],
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 500,
+            maxOutputTokens: 1000,
           },
         }),
       }
     );
+
+    console.log("Gemini response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -85,10 +97,13 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
+    console.log("Gemini response received");
+
     const aiReply =
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
       "Omlouvám se, ale nevím, co odpovědět.";
 
+    // LOG bot reply
     try {
       await db.collection("chatLogs").add({
         sender: "bot",
@@ -109,6 +124,7 @@ export default async function handler(req, res) {
     return res.status(500).json({
       error: "Něco se pokazilo na serveru.",
       details: error.message,
+      
     });
   }
 }
