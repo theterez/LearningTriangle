@@ -1,14 +1,16 @@
 import admin from "firebase-admin";
 
 if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-  });
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      }),
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+    });
+  } catch (e) { console.error("Firebase fail"); }
 }
 const db = admin.firestore();
 
@@ -18,31 +20,27 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Jen POST." });
 
   const { message } = req.body;
   const apiKey = process.env.GEMINI_API_KEY;
 
-  if (!message || !apiKey) return res.status(400).json({ error: "Chybí data." });
+  if (!message || !apiKey) return res.status(400).json({ error: "Chybí message nebo API key" });
 
-  // --- TADY JE TEN POŘÁDNÝ PROMPT A LIMITACE ---
-  const systemPrompt = `Jsi oficiální asistent projektu Learning Triangle. 
-  TVOJE PRAVIDLA:
-  1. Odpovídej VŽDY česky, stručně a s emojis.
-  2. Nabízíme doučování (MAT, ČJ, AJ, příprava na CERMAT).
-  3. Pokud se někdo ptá na věci mimo doučování, slušně ho vrať k tématu.
-  4. Kontakt: info@learningtriangle.cz.
-  5. LIMITACE: Odpověď nesmí být delší než 3 věty. Buď věcný a profesionální.`;
+  // DEFINICE PRAVIDEL (Vložíme je přímo do kontextu zprávy)
+  const systemPrompt = `Instrukce pro AI: Jsi asistent Learning Triangle. 
+  Nabízíme doučování: MAT, ČJ, AJ a přípravu na CERMAT. 
+  Odpovídej česky, stručně (max 3 věty) a s emojis. 
+  Kontakt: info@learningtriangle.cz.`;
 
   try {
-    // Logování uživatele do Firebase
-    await db.collection("chatLogs").add({
+    // Logování uživatele
+    db.collection("chatLogs").add({
       sender: "user",
       message: message,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(() => {});
 
-    // TVOJE FUNKČNÍ VOLÁNÍ (Direct Fetch)
+    // VOLÁNÍ PŘES TVŮJ FUNKČNÍ FETCH
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent",
       {
@@ -52,28 +50,30 @@ export default async function handler(req, res) {
           "x-goog-api-key": apiKey,
         },
         body: JSON.stringify({
-          systemInstruction: {
-            parts: [{ text: systemPrompt }],
-          },
           contents: [
             {
               role: "user",
-              parts: [{ text: message }],
+              parts: [
+                { 
+                  // Tady spojíme pravidla a otázku do jednoho balíku
+                  text: `${systemPrompt}\n\nOtázka uživatele: ${message}` 
+                }
+              ],
             },
           ],
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 150, // Tohle je hard limit pro délku odpovědi
+            maxOutputTokens: 300, // Zvětšeno, aby bot nedořekl jen "Nabízíme"
           },
         }),
       }
     );
 
     const data = await response.json();
-    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Zkus to prosím znovu.";
+    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Zkus to prosím znovu za chvilku.";
 
-    // Logování bota do Firebase
-    await db.collection("chatLogs").add({
+    // Logování bota
+    db.collection("chatLogs").add({
       sender: "bot",
       message: aiReply,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
