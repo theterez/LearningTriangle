@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!message || !apiKey) {
-    return res.status(400).json({ reply: "Chybí zpráva nebo API klíč." });
+    return res.status(200).json({ reply: "Chyba konfigurace. Zkuste to později." });
   }
 
   // OCHRANA PROTI SPAMU (IP RATE LIMIT - 10 zpráv/min)
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
   const recentRequests = userRequests.filter(t => now - t < 60000);
 
   if (recentRequests.length >= 10) {
-    return res.status(429).json({ reply: "Píšeš moc rychle! Počkej minutku." });
+    return res.status(200).json({ reply: "Píšete moc rychle! Počkejte prosím chvilku, než pošlete další zprávu." });
   }
   recentRequests.push(now);
   ipCache.set(ip, recentRequests);
@@ -60,24 +60,17 @@ export default async function handler(req, res) {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(err => console.error("Firebase log error:", err));
 
-    // 2. VOLÁNÍ GEMINI API S TVOJI FUNKČNÍ URL (gemini-3-flash-preview)
+    // 2. VOLÁNÍ GEMINI API S TVOJI FUNKČNÍ URL
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `${SYSTEM_PROMPT}\n\nUživatel: ${message}` }],
-          },
-        ],
+        contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\nUživatel: ${message}` }] }],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 1000, // Aby to neřezalo věty
+          maxOutputTokens: 1000,
           topP: 0.9,
           topK: 40,
         },
@@ -86,12 +79,19 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
+    // --- TADY JE TA ZMĚNA PRO BEZPEČNOST A PROFI VZHLED ---
     if (data.error) {
-      console.error("DEBUG GOOGLE ERROR:", data.error);
-      return res.status(data.error.code || 500).json({ reply: `Chyba API: ${data.error.message}` });
+      // Technickou chybu uvidíš jen ty v logách Vercelu
+      console.error("GOOGLE API ERROR LOG:", JSON.stringify(data.error));
+
+      // Pokud je to limit (429), nebo jakákoliv jiná chyba (404, 500)
+      // Vrátíme uživateli slušnou zprávu místo kódu
+      return res.status(200).json({ 
+        reply: "Omlouvám se, zrovna mám v doučování pauzu nebo technický výpadek. Zkuste mi prosím napsat znovu za chvíli!" 
+      });
     }
 
-    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Teď mě nic nenapadá, zkus to znovu.";
+    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Teď mě nic nenapadá, zkuste se zeptat jinak.";
 
     // 3. LOGOVÁNÍ BOTA DO FIREBASE
     db.collection("chatLogs").add({
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ reply: aiReply });
 
   } catch (error) {
-    console.error("Server Error:", error);
-    return res.status(500).json({ reply: "Chyba na serveru. Zkus to znovu." });
+    console.error("CRITICAL SERVER ERROR:", error);
+    return res.status(200).json({ reply: "Omlouvám se, došlo k chybě připojení. Zkuste to prosím znovu." });
   }
 }
