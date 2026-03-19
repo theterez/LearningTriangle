@@ -1,4 +1,3 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import admin from "firebase-admin";
 
 if (!admin.apps.length) {
@@ -11,7 +10,7 @@ if (!admin.apps.length) {
       }),
       databaseURL: process.env.FIREBASE_DATABASE_URL,
     });
-  } catch (e) { console.error("Firebase init error"); }
+  } catch (e) { console.error("Firebase error"); }
 }
 const db = admin.firestore();
 
@@ -25,33 +24,39 @@ export default async function handler(req, res) {
   const { message } = req.body;
   const apiKey = process.env.GEMINI_API_KEY;
 
-  if (!apiKey) return res.status(500).json({ error: "Chybí klíč" });
+  if (!apiKey) return res.status(500).json({ error: "Chybí API klíč" });
 
-  // INICIALIZACE S VYNUCENOU VERZÍ v1 (stabilní)
-  const genAI = new GoogleGenerativeAI(apiKey);
+  // TADY JE TA ZMĚNA: Vynucujeme STABILNÍ verzi v1 a model gemini-1.5-flash
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
   try {
-    // POKUS Č. 1: Moderní Flash
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(message);
-    const response = await result.response;
-    return res.status(200).json({ reply: response.text() });
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: message }] }]
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Google API Error");
+    }
+
+    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Omlouvám se, ale nedostal jsem odpověď.";
+
+    // Logování (nepovinné, ale ať to máš v DB)
+    db.collection("chatLogs").add({
+      sender: "bot",
+      message: aiReply,
+      timestamp: admin.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+
+    return res.status(200).json({ reply: aiReply });
 
   } catch (error) {
-    console.error("Flash selhal, zkouším Pro verzi...", error.message);
-
-    try {
-      // POKUS Č. 2: Stabilní Pro (pokud Flash hází 404)
-      const fallbackModel = genAI.getGenerativeModel({ model: "gemini-pro" });
-      const result = await fallbackModel.generateContent(message);
-      const response = await result.response;
-      return res.status(200).json({ reply: response.text() });
-
-    } catch (fallbackError) {
-      return res.status(500).json({ 
-        error: "Oba modely selhaly", 
-        details: fallbackError.message 
-      });
-    }
+    console.error("KRITICKÁ CHYBA:", error.message);
+    return res.status(500).json({ error: error.message });
   }
 }
