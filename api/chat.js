@@ -20,8 +20,8 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// MOZEK BOTA - instrukce natvrdo
-const SYSTEM_PROMPT = "Jsi přátelský AI asistent pro 'Learning Triangle' (doučování MAT a ČJ). Pomáháš rodičům a žákům. Odpovídej vždy stručně, srozumitelně a CELÝMI VĚTAMI. Nikdy neutínej větu uprostřed slova nebo myšlenky.";
+// TVŮJ MOZEK BOTA
+const SYSTEM_PROMPT = "Jsi přátelský AI asistent pro 'Learning Triangle' (doučování MAT a ČJ). Pomáháš rodičům a žákům. Odpovídej vždy stručně, srozumitelně a CELÝMI VĚTAMI. Nikdy neutínej větu uprostřed slova.";
 
 export default async function handler(req, res) {
   // CORS nastavení
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
   ipCache.set(ip, recentRequests);
 
   try {
-    // LOGOVÁNÍ UŽIVATELE DO FIREBASE
+    // 1. LOGOVÁNÍ UŽIVATELE DO FIREBASE
     db.collection("chatLogs").add({
       sender: "user",
       message: message,
@@ -60,8 +60,8 @@ export default async function handler(req, res) {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(err => console.error("Firebase log error:", err));
 
-    // VOLÁNÍ GEMINI API - OPRAVENÁ URL PRO ROK 2026
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // 2. VOLÁNÍ GEMINI API S TVOJI FUNKČNÍ URL (gemini-3-flash-preview)
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
         ],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 1000, // Zajišťuje, že věty budou celé
+          maxOutputTokens: 1000, // Aby to neřezalo věty
           topP: 0.9,
           topK: 40,
         },
@@ -86,7 +86,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // Pokud Google vrátí chybu (např. ten tvůj 404), vypíšeme ji přímo
     if (data.error) {
       console.error("DEBUG GOOGLE ERROR:", data.error);
       return res.status(data.error.code || 500).json({ reply: `Chyba API: ${data.error.message}` });
@@ -94,14 +93,14 @@ export default async function handler(req, res) {
 
     const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Teď mě nic nenapadá, zkus to znovu.";
 
-    // LOGOVÁNÍ BOTA DO FIREBASE
+    // 3. LOGOVÁNÍ BOTA DO FIREBASE
     db.collection("chatLogs").add({
       sender: "bot",
       message: aiReply,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(() => {});
 
-    // FINÁLNÍ ODPOVĚĎ
+    // 4. FINÁLNÍ ODPOVĚĎ
     return res.status(200).json({ reply: aiReply });
 
   } catch (error) {
