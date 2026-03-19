@@ -15,10 +15,8 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-const systemPrompt = fs.readFileSync(
-  path.join(process.cwd(), "prompt.md"),
-  "utf-8"
-);
+const systemPrompt = "Jsi přátelský AI asistent pro Learning Triangle. Odpovídej česky, stručně, max 3 věty.";
+
 
 const rateLimitMap = new Map();
 
