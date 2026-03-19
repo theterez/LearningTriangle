@@ -3,7 +3,7 @@ import admin from "firebase-admin";
 import fs from "fs";
 import path from "path";
 
-// 1. Inicializace Firebase (ošetřeno proti pádům)
+// 1. Inicializace Firebase (Singleton pattern s ošetřením chyb)
 if (!admin.apps.length) {
   try {
     admin.initializeApp({
@@ -15,13 +15,13 @@ if (!admin.apps.length) {
       databaseURL: process.env.FIREBASE_DATABASE_URL,
     });
   } catch (error) {
-    console.error("Firebase se nepodařilo nahodit:", error.message);
+    console.error("Firebase init fail:", error.message);
   }
 }
 
 const db = admin.firestore();
 
-// 2. Načtení systémového promptu
+// 2. Načtení systémového promptu (s fallbackem, aby to nespadlo)
 let systemPrompt = "Jsi užitečný asistent pro projekt LearningTriangle. Odpovídej česky.";
 try {
   const promptPath = path.join(process.cwd(), "prompt.md");
@@ -29,65 +29,65 @@ try {
     systemPrompt = fs.readFileSync(promptPath, "utf-8");
   }
 } catch (e) {
-  console.warn("Prompt.md nenalezen, jedu na defaultu.");
+  console.warn("Prompt.md nenalezen, používám default.");
 }
 
 export default async function handler(req, res) {
-  // CORS - aby ti to prohlížeč nezablokoval
+  // CORS hlavičky (aby tě prohlížeč neměl za nepřítele)
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Použij POST." });
+  if (req.method !== "POST") return res.status(405).json({ error: "Metoda nepovolena" });
 
   const { message } = req.body;
   const apiKey = process.env.GEMINI_API_KEY;
 
-  if (!message) return res.status(400).json({ error: "Zpráva chybí." });
-  if (!apiKey) return res.status(500).json({ error: "Chybí GEMINI_API_KEY ve Vercelu." });
+  if (!message) return res.status(400).json({ error: "Zpráva je prázdná" });
+  if (!apiKey) return res.status(500).json({ error: "Chybí API klíč ve Vercelu" });
 
   try {
-    // 3. Logování uživatele do Firebase (běží na pozadí)
+    // 3. Logování uživatele (Firestore)
     const ip = req.headers["x-forwarded-for"] || "unknown";
     db.collection("chatLogs").add({
       sender: "user",
       message: message,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      ip: ip
-    }).catch(e => console.error("Log error user:", e.message));
+      ip: ip,
+    }).catch(err => console.error("Firestore user log error:", err.message));
 
-    // 4. Volání Gemini přes SDK (tohle řeší tu tvou 404 chybu)
+    // 4. Inicializace Gemini s opraveným modelem
     const genAI = new GoogleGenerativeAI(apiKey);
     
-    // Používáme název modelu, který SDK 100% zná
+    // Změna na gemini-1.5-flash-latest pro vyřešení té 404 chyby
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-flash-latest",
       systemInstruction: systemPrompt 
     });
 
+    // 5. Generování odpovědi
     const result = await model.generateContent(message);
     const response = await result.response;
     const aiReply = response.text();
 
-    // 5. Logování bota do Firebase
+    // 6. Logování bota (Firestore)
     db.collection("chatLogs").add({
       sender: "bot",
       message: aiReply,
-      timestamp: admin.firestore.FieldValue.serverTimestamp()
-    }).catch(e => console.error("Log error bot:", e.message));
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    }).catch(err => console.error("Firestore bot log error:", err.message));
 
-    // Poslání odpovědi zpět na frontend
+    // Úspěšná odpověď zpět uživateli
     return res.status(200).json({ reply: aiReply });
 
   } catch (error) {
-    console.error("=== CHYBA PŘI GENEROVÁNÍ ===");
+    console.error("=== API ERROR DETAILS ===");
     console.error(error);
 
-    // Pokud je chyba 404 nebo 400, zkusíme poslat detailnější info
-    return res.status(500).json({ 
-      error: "Gemini error", 
-      details: error.message 
+    return res.status(500).json({
+      error: "Gemini API problém",
+      details: error.message,
     });
   }
 }
