@@ -15,8 +15,10 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-const systemPrompt = "Jsi přátelský AI asistent pro Learning Triangle. Odpovídej česky, stručně, max 3 věty.";
-
+const systemPrompt = fs.readFileSync(
+  path.join(process.cwd(), "prompt.md"),
+  "utf-8"
+);
 
 const rateLimitMap = new Map();
 
@@ -72,7 +74,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
       {
         method: "POST",
         headers: {
