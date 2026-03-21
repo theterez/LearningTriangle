@@ -806,6 +806,8 @@ nav li:hover a {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 15px rgba(243, 175, 52, 0.4);
+    max-width: calc(100% - 40px);
+    box-sizing: border-box;
 }
 
 .writereview:hover {
