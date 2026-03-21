@@ -2,9 +2,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/cenik", "destination": "/pricing.html" },
-    { "source": "/kontakt", "destination": "/kontact.html" },
-    { "source": "/oprojektu", "destination": "/aboutproject.html" },
-    { "source": "/napsatrecenzi", "destination": "/writereview.html" }
+    { "source": "/cenik", "destination": "pricing.html" },
+    { "source": "/kontakt", "destination": "kontact.html" },
+    { "source": "/oprojektu", "destination": "aboutproject.html" },
+    { "source": "/napsatrecenzi", "destination": "writereview.html" }
   ]
 }
