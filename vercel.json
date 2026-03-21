@@ -1,4 +1,12 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/hledamdoucovani", "destination": "/hledamdoucovani.html" },
+    { "source": "/chcidoucovat", "destination": "/chcidoucovat.html" },
+    { "source": "/cenik", "destination": "/pricing.html" },
+    { "source": "/kontakt", "destination": "/kontact.html" },
+    { "source": "/oprojektu", "destination": "/aboutproject.html" },
+    { "source": "/napsatrecenzi", "destination": "/writereview.html" }
+  ]
 }
