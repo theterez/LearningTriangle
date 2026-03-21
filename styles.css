@@ -1553,7 +1553,6 @@ footer{
     left: 0;
     overflow: hidden;
     animation: slideUp 0.3s ease;
-    flex-direction: column;
 }
 
 @keyframes slideUp {
@@ -1777,15 +1776,13 @@ footer{
     
     #chatBox {
         width: 100%;
-        height: 80vh;
-        max-height: 650px;
+        height: 70vh;  
+        max-height: 600px;
         bottom: 85px;
         left: 0;
         right: 0;
         border-radius: 15px;
         position: fixed;
-        display: flex;
-        flex-direction: column;
     }
     
     .chat-header h3 {
@@ -1797,9 +1794,7 @@ footer{
     }
     
     #chatMessages {
-        flex: 1;
-        height: auto;
-        overflow-y: auto;
+        height: calc(70vh - 250px);  
     }
     
     .message-bubble {
