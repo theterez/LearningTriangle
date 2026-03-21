@@ -25,6 +25,12 @@ img {
     padding: 5px;
 }
 
+@media (max-width: 640px) {
+    img {
+        display: none;
+    }
+}
+
 
 .container {
     max-width: 600px;
