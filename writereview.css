@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #52b1e7 0%,#fff);
+    background-color: #52b1e7;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -135,7 +135,7 @@ textarea {
 .btn-submit {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: #52b1e7;
     color: white;
     border: none;
     border-radius: 10px;
@@ -198,7 +198,7 @@ textarea {
 }
 
 .back-link a {
-    color: #667eea;
+    color: #52b1e7;
     text-decoration: none;
     font-weight: bold;
 }
