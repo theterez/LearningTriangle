@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 // Paměť pro IP limity (proti spamu)
 const ipCache = new Map();
 
-// Načtení promptu
+// Načteníí prompt.md souboru
 let PROMPT_CONTENT = "";
 let SYSTEM_PROMPT = "";
 
@@ -17,20 +17,22 @@ function loadPromptFile() {
   try {
     const promptPath = path.join(__dirname, "../prompt.md");
     PROMPT_CONTENT = fs.readFileSync(promptPath, "utf8");
-    // Přidáváme striktní instrukci o formátu přímo k promptu
-    SYSTEM_PROMPT = `${PROMPT_CONTENT}\n\nSTRIKTNÍ PRAVIDLA: Odpovídej stručně (max 2-3 věty). Nepoužívej ŽÁDNÉ formátování jako **tučné**, # nadpisy, seznamy nebo odrážky. Piš jako člověk v chatu.`;
+    SYSTEM_PROMPT = `${PROMPT_CONTENT}`;
     console.log("✅ Prompt file loaded successfully");
     return true;
   } catch (err) {
     console.warn("⚠️ Could not load prompt.md file:", err.message);
-    SYSTEM_PROMPT = `Jsi přátelský asistent Learning Triangle. Odpovídej stručně bez formátování (hvězdiček, mřížek). Kontakt: +420 722 207 321.`;
+    // Fallback systém prompt
+    SYSTEM_PROMPT = `Jsi přátelský AI asistent pro Learning Triangle - českou doučovací platformu. 
+Pomáháš rodičům a žákům s dotazy ohledně doučování. 
+Kontakt: +420 722 207 321, info@learningtriangle.cz`;
     return false;
   }
 }
 
+// Načtení promptu při startu
 loadPromptFile();
 
-// Inicializace Firebase
 if (!admin.apps.length) {
   try {
     admin.initializeApp({
@@ -49,7 +51,7 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 export default async function handler(req, res) {
-  // CORS
+  // CORS nastavení
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -61,23 +63,23 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!message || !apiKey) {
-    return res.status(200).json({ reply: "Chyba konfigurace na serveru." });
+    return res.status(200).json({ reply: "Chyba konfigurace. Zkuste to později." });
   }
 
-  // OCHRANA PROTI SPAMU (10 zpráv/min)
+  // OCHRANA PROTI SPAMU (IP RATE LIMIT - 10 zpráv/min)
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || "unknown";
   const now = Date.now();
   const userRequests = ipCache.get(ip) || [];
   const recentRequests = userRequests.filter(t => now - t < 60000);
 
   if (recentRequests.length >= 10) {
-    return res.status(200).json({ reply: "Píšete moc rychle! Zkuste to prosím za minutku." });
+    return res.status(200).json({ reply: "Píšete moc rychle! Počkejte prosím chvilku, než pošlete další zprávu." });
   }
   recentRequests.push(now);
   ipCache.set(ip, recentRequests);
 
   try {
-    // 1. Logování do Firebase
+    // 1. LOGOVÁNÍ UŽIVATELE DO FIREBASE
     db.collection("chatLogs").add({
       sender: "user",
       message: message,
@@ -85,49 +87,51 @@ export default async function handler(req, res) {
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(err => console.error("Firebase log error:", err));
 
-    // 2. Volání Gemini API (používáme stabilní flash model)
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // 2. VOLÁNÍ GEMINI API S TVOJI FUNKČNÍ URL
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: [{ 
-          role: "user", 
-          parts: [{ text: `KONTEXT: ${SYSTEM_PROMPT}\n\nUŽIVATEL: ${message}` }] 
-        }],
+        contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\nUživatel: ${message}` }] }],
         generationConfig: {
-          temperature: 0.5,     // Nižší teplota = méně vymýšlení nesmyslů
-          maxOutputTokens: 150, // Krátká odpověď (cca 2-3 věty)
-          topP: 0.8,
+          temperature: 0.7,
+          maxOutputTokens: 1000,
+          topP: 0.9,
+          topK: 40,
         },
       }),
     });
 
     const data = await response.json();
 
+    // --- TADY JE TA ZMĚNA PRO BEZPEČNOST A PROFI VZHLED ---
     if (data.error) {
-      console.error("GOOGLE API ERROR:", JSON.stringify(data.error));
+      // Technickou chybu uvidíš jen ty v logách Vercelu
+      console.error("GOOGLE API ERROR LOG:", JSON.stringify(data.error));
+
+      // Pokud je to limit (429), nebo jakákoliv jiná chyba (404, 500)
+      // Vrátíme uživateli slušnou zprávu místo kódu
       return res.status(200).json({ 
-        reply: "Mám zrovna krátkou pauzu. Zkuste mi prosím napsat za chvilku!" 
+        reply: "Omlouvám se, zrovna mám v doučování pauzu nebo technický výpadek. Zkuste mi prosím napsat znovu za chvíli!" 
       });
     }
 
-    // Vyčištění odpovědi od případných zbylých Markdown znaků
-    let aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Teď mi vypadlo spojení, zkuste to prosím znovu.";
-    aiReply = aiReply.replace(/[\*#_>]/g, "").trim(); // Odstraní hvězdičky, mřížky, podtržítka
+    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Teď mě nic nenapadá, zkuste se zeptat jinak.";
 
-    // 3. Logování odpovědi bota
+    // 3. LOGOVÁNÍ BOTA DO FIREBASE
     db.collection("chatLogs").add({
       sender: "bot",
       message: aiReply,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     }).catch(() => {});
 
+    // 4. FINÁLNÍ ODPOVĚĎ
     return res.status(200).json({ reply: aiReply });
 
   } catch (error) {
-    console.error("CRITICAL ERROR:", error);
-    return res.status(200).json({ reply: "Omlouvám se, něco se pokazilo. Zkuste to znovu." });
+    console.error("CRITICAL SERVER ERROR:", error);
+    return res.status(200).json({ reply: "Omlouvám se, došlo k chybě připojení. Zkuste to prosím znovu." });
   }
 }
