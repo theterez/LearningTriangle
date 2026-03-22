@@ -1,7 +1,37 @@
 import admin from "firebase-admin";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Paměť pro IP limity (proti spamu)
 const ipCache = new Map();
+
+// Načteníí prompt.md souboru
+let PROMPT_CONTENT = "";
+let SYSTEM_PROMPT = "";
+
+function loadPromptFile() {
+  try {
+    const promptPath = path.join(__dirname, "../prompt.md");
+    PROMPT_CONTENT = fs.readFileSync(promptPath, "utf8");
+    SYSTEM_PROMPT = `${PROMPT_CONTENT}`;
+    console.log("✅ Prompt file loaded successfully");
+    return true;
+  } catch (err) {
+    console.warn("⚠️ Could not load prompt.md file:", err.message);
+    // Fallback systém prompt
+    SYSTEM_PROMPT = `Jsi přátelský AI asistent pro Learning Triangle - českou doučovací platformu. 
+Pomáháš rodičům a žákům s dotazy ohledně doučování. 
+Kontakt: +420 722 207 321, info@learningtriangle.cz`;
+    return false;
+  }
+}
+
+// Načtení promptu při startu
+loadPromptFile();
 
 if (!admin.apps.length) {
   try {
@@ -19,9 +49,6 @@ if (!admin.apps.length) {
 }
 
 const db = admin.firestore();
-
-// TVŮJ MOZEK BOTA
-const SYSTEM_PROMPT = "Jsi přátelský AI asistent pro 'Learning Triangle' (doučování MAT a ČJ). Pomáháš rodičům a žákům. Odpovídej vždy stručně, srozumitelně a CELÝMI VĚTAMI. Nikdy neutínej větu uprostřed slova.";
 
 export default async function handler(req, res) {
   // CORS nastavení

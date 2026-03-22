@@ -1,11 +1,11 @@
 @font-face {
     font-family: normal;
-    src: url(Montserrat-Regular.ttf);
+    src: url(assets/fonts/Montserrat-Regular.ttf);
 }
 
 @font-face {
     font-family: bold;
-    src: url(Montserrat-Bold.ttf);
+    src: url(assets/fonts/Montserrat-Bold.ttf);
 }
 
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700);
@@ -28,7 +28,7 @@ body {
     color: hsl(0 0% 0%);
     padding-top: 5rem;
     min-width: 100%;
-    background-image: url(triangles.png);
+    background-image: url(assets/images/triangles.png);
     background-repeat: no-repeat;
     background-size: 100% auto;
     font-family: normal;
@@ -1226,7 +1226,7 @@ footer{
 
 @media (max-width: 768px){
     body{
-        background-image: url(triangles.png);
+        background-image: url(assets/images/triangles.png);
         background-size: 100%;
         background-repeat: repeat-y;
     }
