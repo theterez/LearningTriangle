@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEARNING TRIANGLE</title>
+    <link rel="stylesheet" href="sablona.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- HTML - přidej dropdown -->
+<!-- HTML -->
+<nav class="pc-nav">
+    <img src="logo.webp" alt="" class="logo">
+    <ul>
+        <li><a href="index.html">ÚVOD</a></li>
+        
+        <!-- DROPDOWN POLOŽKA -->
+        <li class="has-dropdown">
+            <a href="aboutproject.html">O PROJEKTU</a>
+            <div class="dropdown-menu">
+                <a href="aboutproject.html#timeline">Timeline</a>
+                <a href="aboutproject.html#jak-funguje">Jak funguje</a>
+                <a href="aboutproject.html#online">Online lekce</a>
+            </div>
+        </li>
+        
+        <li><a href="pricing.html">CENÍK</a></li>
+        <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+        <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+        <li><a href="kontact.html">KONTAKT</a></li>
+        <li><a class="login" href="">PŘIHLÁSIT SE</a></li>
+    </ul>
+</nav>
+    <nav class="mobile-nav">
+        <div class="nav-header">
+            <img src="logo.webp" alt="" class="logo-mobile">
+            <div class="menu-container-wrapper">
+                <span class="menu-trigger">
+                    <i class="menu-trigger-bar top"></i>
+                    <i class="menu-trigger-bar middle"></i>
+                    <i class="menu-trigger-bar bottom"></i>
+                </span>
+                <span class="close-trigger">
+                    <i class="close-trigger-bar left"></i>
+                    <i class="close-trigger-bar right"></i>
+                </span>
+                <div class="inner-container">
+                    <i class="menu-bg top"></i>
+                    <i class="menu-bg middle"></i>
+                    <i class="menu-bg bottom"></i>
+                    <div class="menu-container">
+                    <ul class="menu">
+                        <li><a href="index.html">ÚVOD</a></li>
+                        <li><a href="aboutproject.html">O PROJEKTU</a></li>
+                        <li><a href="pricing.html">CENÍK</a></li>
+                        <li><a href="hledamdoucovani.html">HLEDÁM DOUČOVÁNÍ</a></li>
+                        <li><a href="chcidoucovat.html">CHCI DOUČOVAT</a></li>
+                        <li><a href="kontact.html">KONTAKT</a></li>
+                        <li><a class="login" href="">PRIHLASIT SE</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section1">
+        <div class="title">
+            <h2><span class="heading">KONTAKT</span></h2>
+        </div>
+    
+    
+    <footer></footer>
+
+    <!-- AI CHATBOT WIDGET -->
+    <div id="chatWidget">
+        <button id="chatBtn">💬</button>
+        
+        <div id="chatBox">
+            <div class="chat-header">
+                <div class="chat-header-avatar">🎓</div>
+                <div class="chat-header-info">
+                    <h3>Learning Triangle AI</h3>
+                    <p>Jsem tu, abych ti pomohl!</p>
+                </div>
+            </div>
+            
+            <div id="chatMessages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Ahoj! 👋 Jsem AI asistent Learning Triangle. Jak ti můžu pomoci?
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jaké předměty doučujete?')">📚 Předměty</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Kolik to stojí?')">💰 Cena</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Jak to funguje?')">❓ Info</button>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="chat-input-container">
+                <input id="chatInput" type="text" placeholder="Napiš zprávu..." autocomplete="off">
+                <button id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONSOLIDATED SCRIPT -->
+    <script type="module">
+        // ========== FIREBASE REVIEWS ==========
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, onValue, query, orderByChild } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCudxqV25JHt9JQ2Nwvd1-5MX3czzxpZeE",
+            authDomain: "learning-triangle.firebaseapp.com",
+            databaseURL: "https://learning-triangle-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "learning-triangle",
+            storageBucket: "learning-triangle.firebasestorage.app",
+            messagingSenderId: "225296768834",
+            appId: "1:225296768834:web:472e2a25f24afc644ff2db",
+            measurementId: "G-MLDZ5TLJ87"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        let reviewsData = [];
+        let currentIndex = 0;
+        let autoScrollInterval;
+
+        function loadReviews() {
+            const reviewsRef = ref(database, 'reviews');
+            const reviewsQuery = query(reviewsRef, orderByChild('timestamp'));
+            
+            onValue(reviewsQuery, (snapshot) => {
+                const data = snapshot.val();
+                document.getElementById('loadingMessage').style.display = 'none';
+                
+                if (data) {
+                    reviewsData = Object.entries(data)
+                        .map(([id, review]) => ({ id, ...review }))
+                        .filter(review => review.approved === true)
+                        .reverse();
+                    
+                    if (reviewsData.length > 0) {
+                        document.getElementById('carouselSection').style.display = 'block';
+                        document.getElementById('noReviewsMessage').style.display = 'none';
+                        renderReviews();
+                        startAutoScroll();
+                    } else {
+                        showNoReviews();
+                    }
+                } else {
+                    showNoReviews();
+                }
+            });
+        }
+
+        function showNoReviews() {
+            document.getElementById('carouselSection').style.display = 'none';
+            document.getElementById('noReviewsMessage').style.display = 'block';
+        }
+
+        function renderReviews() {
+            const wrapper = document.getElementById('carouselWrapper');
+            const duplicatedReviews = [];
+            for (let i = 0; i < 5; i++) {
+                duplicatedReviews.push(...reviewsData);
+            }
+            
+            wrapper.innerHTML = duplicatedReviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar"></div>
+                        <div class="review-info">
+                            <div class="review-name">${escapeHtml(review.name)}</div>
+                            <div class="review-stars">${'★'.repeat(review.rating)}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">${escapeHtml(review.text)}</div>
+                </div>
+            `).join('');
+            
+            currentIndex = reviewsData.length * 2;
+            updateCarousel(false);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateCarousel(animated = true) {
+            const wrapper = document.getElementById('carouselWrapper');
+            const cardWidth = 300;
+            const offset = -(currentIndex * cardWidth);
+            wrapper.style.transition = animated ? 'transform 0.8s ease-in-out' : 'none';
+            wrapper.style.transform = `translateX(${offset}px)`;
+        }
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                currentIndex++;
+                updateCarousel(true);
+                setTimeout(() => {
+                    if (currentIndex >= reviewsData.length * 4) {
+                        currentIndex = reviewsData.length * 2;
+                        updateCarousel(false);
+                    }
+                }, 800);
+            }, 4000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselSection = document.getElementById('carouselSection');
+            if (carouselSection) {
+                carouselSection.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+                carouselSection.addEventListener('mouseleave', () => startAutoScroll());
+            }
+        });
+
+        loadReviews();
+
+        // ========== NAVBAR SCROLL ==========
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ========== OFFER OVERLAYS ==========
+        window.openOverlay = function(id) {
+            const overlay = document.getElementById(id);
+            overlay.classList.toggle('active');
+        }
+
+        window.closeOverlay = function(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // ========== AI CHATBOT (VOLÁ NODE.JS API) ==========
+        const chatBtn = document.getElementById('chatBtn');
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatBtn.onclick = () => {
+            const isVisible = chatBox.style.display === 'block';
+            chatBox.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) chatInput.focus();
+        };
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim()) {
+                sendMessage();
+            }
+        });
+
+        sendBtn.onclick = sendMessage;
+
+        window.sendQuickReply = function(message) {
+            chatInput.value = message;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+
+            addMessage(userMsg, 'user');
+            chatInput.value = '';
+
+            typingIndicator.classList.add('active');
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                // VOLÁ VERCEL NODE.JS API ENDPOINT
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                
+                const data = await response.json();
+                
+                typingIndicator.classList.remove('active');
+                
+                if (data.error) {
+                    addMessage('Omlouvám se, něco se pokazilo. Zkus to prosím znovu.', 'bot');
+                    console.error('API Error:', data.error);
+                } else {
+                    addMessage(data.reply, 'bot');
+                }
+            } catch (error) {
+                typingIndicator.classList.remove('active');
+                addMessage('Chyba připojení k serveru. Zkontroluj internet.', 'bot');
+                console.error('Fetch Error:', error);
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
