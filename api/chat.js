@@ -17,15 +17,15 @@ function loadPromptFile() {
   try {
     const promptPath = path.join(__dirname, "../prompt.md");
     PROMPT_CONTENT = fs.readFileSync(promptPath, "utf8");
-    SYSTEM_PROMPT = `${PROMPT_CONTENT}`;
+    // TADY JE TA ZMĚNA: Přidán striktní limit na délku
+    SYSTEM_PROMPT = `${PROMPT_CONTENT}\n\nSTRIKTNÍ PRAVIDLO: Tvá odpověď nesmí být delší než 300 znaků. Buď stručný a věcný.`;
     console.log("✅ Prompt file loaded successfully");
     return true;
   } catch (err) {
     console.warn("⚠️ Could not load prompt.md file:", err.message);
-    // Fallback systém prompt
-    SYSTEM_PROMPT = `Jsi přátelský AI asistent pro Learning Triangle - českou doučovací platformu. 
-Pomáháš rodičům a žákům s dotazy ohledně doučování. 
-Kontakt: +420 722 207 321, info@learningtriangle.cz`;
+    // Fallback systém prompt s limitem
+    SYSTEM_PROMPT = `Jsi přátelský AI asistent pro Learning Triangle. Pomáháš s dotazy ohledně doučování. 
+Kontakt: +420 722 207 321. Odpovídej stručně, maximálně do 300 znaků.`;
     return false;
   }
 }
