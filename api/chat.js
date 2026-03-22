@@ -17,15 +17,17 @@ function loadPromptFile() {
   try {
     const promptPath = path.join(__dirname, "../prompt.md");
     PROMPT_CONTENT = fs.readFileSync(promptPath, "utf8");
-    // TADY JE TA ZMĚNA: Přidán striktní limit na délku
-    SYSTEM_PROMPT = `${PROMPT_CONTENT}\n\nSTRIKTNÍ PRAVIDLO: Tvá odpověď nesmí být delší než 300 znaků. Buď stručný a věcný.`;
+    SYSTEM_PROMPT = `${PROMPT_CONTENT}\n\nSTRIKTNÍ INSTRUKCE: Odpovídej stručně (ideálně do 3 vět). VŽDY dokonči celou větu a nikdy ji neutínej uprostřed myšlenky. Působ přirozeně a věcně.`;
+    
     console.log("✅ Prompt file loaded successfully");
     return true;
   } catch (err) {
     console.warn("⚠️ Could not load prompt.md file:", err.message);
-    // Fallback systém prompt s limitem
+    
+    // Fallback systém prompt (kdyby náhodou soubor vypadl)
     SYSTEM_PROMPT = `Jsi přátelský AI asistent pro Learning Triangle. Pomáháš s dotazy ohledně doučování. 
-Kontakt: +420 722 207 321. Odpovídej stručně, maximálně do 300 znaků.`;
+Kontakt: +420 722 207 321. Odpovídej stručně, maximálně 3 věty a vždy dokonči celou myšlenku.`;
+    
     return false;
   }
 }
