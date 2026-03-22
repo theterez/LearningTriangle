@@ -1,6 +1,7 @@
 # Znalostní báze – Learning Triangle (learningtriangle.cz)
 
 > Dokument sestavený pro použití AI agentem. Obsahuje veškeré dostupné informace o službě Learning Triangle tak, aby agent mohl odpovídat na otázky zákazníků, rodičů, studentů i potenciálních lektorů.
+> nepoužívej formátování (** atd.)!!!
 
 ---
 
