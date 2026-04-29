@@ -23,7 +23,7 @@ html {
 }
 
 body {
-    min-height: 400vh;
+    min-height: 100vh;
     background: hsl(0 0% 98%);
     color: hsl(0 0% 0%);
     padding-top: 5rem;
@@ -33,7 +33,9 @@ body {
     background-size: 100% auto;
     font-family: normal;
     max-width: 100vw;  
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -1136,10 +1138,11 @@ nav li:hover a {
 }
 
 .video {
-    width: 960px;  
-    height: 615px;
-    margin: 0 auto;
-    margin-bottom: 13%;
+    width: 40%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 9/16;
+    border-radius: 12px;
 }
 
 footer{
@@ -1830,7 +1833,7 @@ footer{
 footer {
     background: rgba(82, 177, 231, 0.6);
     padding: 60px 40px 20px;
-    margin-top: 80px;
+    margin-top: auto;
 }
 
 .footer-container {

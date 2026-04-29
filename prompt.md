@@ -168,6 +168,15 @@ Tato případová studie ilustruje reálný průběh doučování na Learning Tr
 | `learningtriangle.cz/doucovani-jihlava/` | Doučování v Jihlavě – osobně na gymnáziu i online |
 | `learningtriangle.cz/l/online-doucovani-ceskeho-jazyka-na-prijimacky/` | Případová studie: online příprava na přijímačky z ČJ (Káťa & Klárka) |
 
+## 11. Pravidla rušení lekcí:
+- Zrušení 4+ hodiny předem: zdarma, nic se nestrhává
+- Zrušení méně než 4 hodiny předem studentem: lektor dostává plnou výplatu, klient platí plnou cenu
+- Výjimky: lékař, nemoc, neplánované vyzvednutí ze školy
+- Zrušení méně než 4 hodiny předem lektorem: klient má nárok na 100% slevu na další lekci
+- Lektor může rušit na prázdniny, kurzy atd. - musí informovat týden předem
+- Rušení lektorem 3+ týdny v řadě: musí nahlásit mentorovi
+- Změna termínu: možná po domluvě klienta a lektora
+
 ---
 
 ## 11. Časté otázky (FAQ) – odpovědi pro agenta

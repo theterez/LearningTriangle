@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test spec\" && exit 1"
+    "test": "node --check api/chat.js && node --check api/firebase.js && node --check script.js"
   },
   "keywords": [],
   "author": "",

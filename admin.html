@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Recenze</title>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-MLDZ5TLJ87');
+    </script>
     <style>
         * {
             margin: 0;
@@ -12,8 +19,9 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
+            font-family: 'Montserrat', sans-serif;
+            background: hsl(0 0% 98%);
+            color: #222222;
         }
 
         /* Login Screen */
@@ -22,7 +30,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
             padding: 20px;
         }
 
@@ -63,13 +71,13 @@
 
         .login-form input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #52b1e7;
         }
 
         .login-btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #66BB6A 0%, #388E3C 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -116,7 +124,7 @@
         }
 
         .admin-header h1 {
-            color: #333;
+            color: #222222;
             font-size: 1.8rem;
         }
 
@@ -128,7 +136,7 @@
 
         .logout-btn {
             padding: 10px 20px;
-            background: #f44336;
+            background: #52b1e7;
             color: white;
             border: none;
             border-radius: 8px;
@@ -137,7 +145,7 @@
         }
 
         .logout-btn:hover {
-            background: #d32f2f;
+            background: #3a8fc7;
         }
 
         .container {
@@ -154,7 +162,7 @@
         }
 
         .admin-section h2 {
-            color: #4FC3F7;
+            color: #52b1e7;
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
@@ -163,7 +171,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid #52b1e7;
         }
 
         .tab {
@@ -179,17 +187,18 @@
         }
 
         .tab.active {
-            color: #4FC3F7;
-            border-bottom-color: #4FC3F7;
+            color: #52b1e7;
+            border-bottom-color: #52b1e7;
         }
 
         .tab .badge {
-            background: #f44336;
-            color: white;
+            background: #FFB300;
+            color: #222222;
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 0.85rem;
             margin-left: 5px;
+            font-weight: bold;
         }
 
         .reviews-list {
@@ -219,7 +228,7 @@
 
         .review-item-name {
             font-weight: bold;
-            font-size: 1.1rem;
+            font-siz2222221.1rem;
             color: #333;
         }
 
@@ -282,30 +291,30 @@
         }
 
         .btn-approve {
-            background: #4CAF50;
+            background: #52b1e7;
             color: white;
         }
 
         .btn-approve:hover {
-            background: #45a049;
+            background: #3a8fc7;
         }
 
         .btn-reject {
-            background: #FF9800;
-            color: white;
+            background: #FFB300;
+            color: #222222;
         }
 
         .btn-reject:hover {
-            background: #F57C00;
+            background: #f3af34;
         }
 
         .btn-delete {
-            background: #f44336;
+            background: #FF7043;
             color: white;
         }
 
         .btn-delete:hover {
-            background: #d32f2f;
+            background: #E64A19;
         }
 
         .message {
@@ -343,7 +352,7 @@
         .stat-card {
             flex: 1;
             min-width: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #52b1e7 0%, #3a8fc7 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -351,11 +360,13 @@
         }
 
         .stat-card.warning {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #FFB300 0%, #f3af34 100%);
+            color: #222222;
         }
 
         .stat-card.success {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #52b1e7 0%, #3a8fc7 100%);
+            color: white;
         }
 
         .stat-number {
@@ -389,7 +400,7 @@
                 border-bottom: none;
                 border-left: 3px solid transparent;
             }
-
+52b1e
             .tab.active {
                 border-left-color: #4FC3F7;
                 border-bottom-color: transparent;

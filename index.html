@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -273,15 +273,31 @@
 
     <section class="section4">
         <h1>VÍCE O NÁS</h1>
-        <div class="video">
-            <iframe class="video" src="https://www.youtube.com/embed/?v=u_DRgm9yr6I" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-            </iframe>
+        <div class="video-container">
+            <video controls style="width: 40%; max-width: 400px; height: auto; max-height: 80vh; aspect-ratio: 9/16; border-radius: 12px;"> 
+                <source src="assets/videos/video.mp4" type="video/mp4">
+            </video>
         </div>
     </section>
+
+    <style>
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .video {
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            border: none;
+        }
+    </style>
 
     <!-- AI CHATBOT WIDGET -->
     <div id="chatWidget">
@@ -545,16 +561,15 @@
         <!-- SLOUPEC 3 - PRÁVNÍ INFORMACE -->
         <div class="footer-column">
             <ul>
-                <li><a href="obchodni-podminky.html">Obchodní podmínky</a></li>
-                <li><a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a></li>
-                <li><a href="gdpr.html">GDPR</a></li>
+                <li><a href="Obchodni_podminky-1.pdf" target="_blank">Obchodní podmínky</a></li>
+                <li><a href="ochrana-osobnich-udaju.pdf" target="_blank">Ochrana osobních údajů</a></li>
             </ul>
         </div>
     </div>
 
     <!-- COPYRIGHT -->
     <div class="footer-copyright">
-        <p>&copy; 2025 Learning Triangle. Všechna práva vyhrazena.</p>
+        <p>&copy; 2026 Learning Triangle. Všechna práva vyhrazena.</p>
     </div>
 </footer>
 
