@@ -274,8 +274,8 @@
     <section class="section4">
         <h1>VÍCE O NÁS</h1>
         <div class="video-container">
-            <video controls style="width: 40%; max-width: 400px; height: auto; max-height: 80vh; aspect-ratio: 9/16; border-radius: 12px;"> 
-                <source src="assets/videos/video.mp4" type="video/mp4">
+            <video class="about-video" controls preload="metadata" playsinline>
+                <source src="assets/videos/video.mp4?v=20260429" type="video/mp4">
             </video>
         </div>
     </section>
@@ -291,11 +291,13 @@
             padding: 20px;
         }
 
-        .video {
-            width: 80%;
-            max-width: 800px;
-            height: 450px;
-            border: none;
+        .about-video {
+            width: 40%;
+            max-width: 400px;
+            height: auto;
+            max-height: 80vh;
+            aspect-ratio: 9 / 16;
+            border-radius: 12px;
         }
     </style>
 
